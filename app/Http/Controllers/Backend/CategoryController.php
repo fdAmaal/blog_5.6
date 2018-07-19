@@ -44,8 +44,8 @@ class CategoryController extends Controller
         // using Eloquent method to insert data
         Category::create($request->all());
 
-        return redirect('categories')
-            ->with('success','Category created successfully');
+        return redirect('/admin/categories')
+            ->with('success',200);
 
     }
 
@@ -92,6 +92,8 @@ class CategoryController extends Controller
         $category->img=$request->img;
         $category->active=$request->active;
         $category->save();
+        return redirect('/admin/categories')
+            ->with('success',200);
     }
 
     /**

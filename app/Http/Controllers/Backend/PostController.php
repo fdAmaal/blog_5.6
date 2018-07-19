@@ -52,13 +52,15 @@ class PostController extends Controller
         $posts->category_id=$request->category;
         $posts->title=$request->title;
         $posts->description=$request->Description;
-        $posts->content==$request->content;
-        $posts->author_firstName=$request->authorFname;
-        $posts->author_lastName=$request->authorLname;
-        $posts->source_url=$request->Source;
-        $posts->img=$request->Image;
+        $posts->content= $request->Content;
+        $posts->author_firstName=$request->Author_firstName;
+        $posts->author_lastName=$request->Author_lastName;
+        $posts->source_url=$request->source_url;
+        $posts->img=$request->img;
         $posts->active=$request->active;
         $posts->save();
+        return redirect('/admin/posts')
+            ->with('success',200);
     }
 
     /**
@@ -104,15 +106,15 @@ class PostController extends Controller
         $posts->category_id=$request->category;
         $posts->title=$request->Title;
         $posts->description=$request->Description;
-        $posts->content= $request-> content;
+        $posts->content= $request-> Content;
         $posts->author_firstName=$request->Author_firstName;
         $posts->author_lastName=$request->Author_lastName;
-        $posts->author_img=$request->Author_img;
         $posts->source_url=$request->source_url;
-        $posts->perma_link=$request->perma_link;
         $posts->img=$request->img;
         $posts->active=$request->active;
         $posts->save();
+        return redirect('/admin/posts')
+            ->with('success',200);
     }
 
     /**
@@ -123,8 +125,16 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post=Post::find($id);
+        if ($post->active === 1)
+            $post->active = 0;
+        else
+            $post->active = 1;
+        return redirect('/admin/posts')
+            ->with('success',200);
     }
+
+
 
 
 }
